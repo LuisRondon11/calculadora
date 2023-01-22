@@ -1,0 +1,63 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+table {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: #181818;
+    width: 250px;
+}
+.pantalla {
+    display: flex;
+    justify-content: right;
+    background-color: #32363C;
+    color: #D0D5D6;
+    margin: -3.6px 0px 0px 0px;
+    border-radius: 0 0 25px 25px;
+    height: 100px;
+    width: 250px;
+    font-size: 25px;
+}
+td {
+    width: 50px;
+    height: 50px;
+}
+button {
+    border-radius: 50%;
+    border: none;
+    width: 50px;
+    height: 50px;
+    color: white;
+    background-color: #232227;
+}
+button:active {
+    background-color: #D0D5D6;
+    color: #232227;
+}
+.resetear {
+    background-color: #005118;
+}
+.parentesis, .porcentaje, .division, .multiplicacion,
+.menos, .mas{
+    background-color: #01497A;
+}
+.igual {
+    background-color: #003FA4;
+}
+.funciones button{
+    color: #4c8df6;
+    background-color: transparent;
+}
+.funciones button:active{
+    color: #d0d5d6;
+    background-color: transparent;
+}
+.reciduoDivicion {
+    font-size: 10px;
+}
