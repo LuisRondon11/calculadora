@@ -1,153 +1,90 @@
-//mis variables donde se almancenan los numeros y el operado ingresados 
-var num1 = new Number;
-var num2 = new Number;
-var operador;
-// variables que llaman a los botonoes
-let pantalla= document.getElementById("pantalla");
-let uno= document.getElementById("uno");
-let dos= document.getElementById("dos");
-let tres= document.getElementById("tres");
-let cuatro= document.getElementById("cuatro");
-let cinco= document.getElementById("cinco");
-let seis= document.getElementById("seis");
-let siete= document.getElementById("siete");
-let ocho= document.getElementById("ocho");
-let nueve= document.getElementById("nueve");
-let cero= document.getElementById("cero");
-let resetear= document.getElementById("resetear");
-let coma= document.getElementById("coma");
-let porcentaje= document.getElementById("porcentaje");
-let division= document.getElementById("division");
-let multiplicacion= document.getElementById("multiplicacion");
-let menos= document.getElementById("menos");
-let mas= document.getElementById("mas");
-let igual= document.getElementById("igual");
-let eliminar= document.getElementById("eliminar");
-let raiz= document.getElementById("raiz");
-let potencia= document.getElementById("potencia");
-let residuo= document.getElementById("residuoDivicion");
-//funciones que escuchan el click y colocan en pantalla lo pulsado
-uno.onclick = function() {
-    pantalla.textContent = pantalla.textContent + 1;
+const pantalla = document.querySelector('#pantalla');
+const operacionCompleta = document.querySelector('#operacionCompleta');
+const botonesNumeros = document.querySelectorAll('[data-numero]');
+const botonesOperadores = document.querySelectorAll('[data-operador]');
+let n1 = new Number;
+let n2 = new Number;
+let operador = null;
+botonesNumeros.forEach(numero => {
+    numero.addEventListener('click', (e) => {
+        pantalla.textContent += e.target.value;
+    });
+});
+botonesOperadores.forEach(operador => {
+    operador.addEventListener('click', (e) => {
+        if (operador.value == '=') operacion();
+        if (operador.value == '&#9003;') borrar();
+        if (operador.value == 'AC') reset();
+        if (operador.value == '&#8730;') raiz();
+        if (operador.value != '&#9003;' && operador.value != 'ac' && operador.value != '&#8730') agregarOperador(e.target.value);
+    });
+});
+window.addEventListener('keydown', (e) => {
+    if (e.key >= 0 && e.key <= 9) pantalla.textContent += e.key;
+    if (e.key == '=' || e.key == 'Enter') operacion();
+    if (e.key == 'Backspace')  borrar();
+    if (e.key == 'Escape') reset();
+    if ( e.key == '/' || e.key == '*' || e.key == '-' || e.key == '+') agregarOperador(e.key);
+    if (e.key == '.' && pantalla.textContent.includes('.')) return;
+        else if (e.key == '.') pantalla.textContent += e.key;
+});
+function agregarOperador(op) {
+    n1 = pantalla.textContent;
+    operador = op;
+    operacionCompleta.textContent = `${n1}${operador}`;
+    pantalla.textContent = '';
 };
-dos.onclick = function() {
-    pantalla.textContent = pantalla.textContent + 2;
-};
-tres.onclick = function() {
-    pantalla.textContent = pantalla.textContent + 3;
-};
-cuatro.onclick = function() {
-    pantalla.textContent = pantalla.textContent + 4;
-};
-cinco.onclick = function() {
-    pantalla.textContent = pantalla.textContent + 5;
-};
-seis.onclick = function() {
-    pantalla.textContent = pantalla.textContent + 6;
-};
-siete.onclick = function() {
-    pantalla.textContent = pantalla.textContent + 7;
-};
-ocho.onclick = function() {
-    pantalla.textContent = pantalla.textContent + 8;
-};
-nueve.onclick = function() {
-    pantalla.textContent = pantalla.textContent + 9;
-};
-cero.onclick = function() {
-    pantalla.textContent = pantalla.textContent + 0;
-};
-coma.onclick = function() {
-    pantalla.textContent = pantalla.textContent + '.';
-};
-resetear.onclick = function() {
-    reset();
-};
-//mis funciones que hacen las operaciones matematicas
-porcentaje.onclick = function(){
-    num1 = pantalla.textContent;
-    operador = "%";
-    limpiar();
-};
-division.onclick = function() {
-    num1 = pantalla.textContent;
-    operador = "/";
-    limpiar();
-};
-multiplicacion.onclick = function() {
-    num1 = pantalla.textContent;
-    operador = "*";
-    limpiar();
-};
-menos.onclick = function() {
-    num1 = pantalla.textContent;
-    operador = "-";
-    limpiar(); 
-};
-mas.onclick = function() {
-    num1 = pantalla.textContent;
-    operador = "+";
-    limpiar(); 
-};
-raiz.onclick = () => {
-    num1 = pantalla.textContent
-    operador = "raiz";
-    resolver();
-};
-potencia.onclick= () => {
-    num1 = pantalla.textContent;
-    operador = "potencia";
-    limpiar();
-};
-residuo.onclick = () => {
-    num1 = pantalla.textContent;
-    operador = "%"
-    limpiar();
-};
-igual.onclick = function() {
-    num2 = pantalla.textContent;
-    resolver(); 
-  };
-eliminar.onclick = function() {
-  limpiar();
-};
-function reset() {
-    pantalla.textContent = "";
-    num1 = 0;
-    num2 = 0;
-    operacion = "";
-};
-function limpiar() {
-    pantalla.textContent = "";
-};
-function resolver() {
-    var respuesta = 0
+function operacion() {
+    n2 = pantalla.textContent;
+    operacionCompleta.textContent = `${n1}${operador}${n2}`;
+    if (operador == '/' && n2 == 0) return pantalla.textContent = 'estas mal';
     switch (operador) {
-        case "%":
-            respuesta = (num1*num2)/100;
+        case '+':
+            suma();
             break;
-        case "/":
-            respuesta = num1 / num2;
+        case '-':
+            resta();
             break;
-        case "*":
-            respuesta = num1 * num2;
+        case '*':
+            multiplicacion();
             break;
-        case "-":
-            respuesta = num1 - num2;
+        case '/':
+            division();
             break;
-        case "+":
-            respuesta = Number(num1) + Number(num2);
+        case '%':
+            porcentaje();
             break;
-        case "raiz":
-            respuesta = Math.sqrt(num1);
+        case 'X^':
+            potencia();
             break;
-        case "potencia":
-            respuesta = Math.pow(num1,num2);
-            break;
-        case "%":
-            respuesta = num1 % num2;
+        case 'Reciduo':
+            reciduo();
             break;
     };
-    reset();
-    pantalla.textContent = respuesta;
+};
+function borrar() {
+    pantalla.textContent = pantalla.textContent.toString().slice(0,-1);
+};
+function reset() {
+    n1 = '';
+    n2 = '';
+    operador = '';
+    pantalla.textContent = '';
+    operacionCompleta.textContent = '';
+};
+function suma() {
+    pantalla.textContent = parseFloat(n1) + parseFloat(n2);
+    operacionCompleta.textContent = '';
+};
+function resta() {
+    pantalla.textContent = parseFloat(n1) - parseFloat(n2);
+    operacionCompleta.textContent = '';
+};
+function multiplicacion() {
+    pantalla.textContent = parseFloat(n1) * parseFloat(n2);
+    operacionCompleta.textContent = '';
+};
+function division() {
+    pantalla.textContent = parseFloat(n1) / parseFloat(n2);
+    operacionCompleta.textContent = '';
 };

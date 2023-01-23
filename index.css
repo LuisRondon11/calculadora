@@ -24,11 +24,16 @@ table {
     width: 250px;
     font-size: 25px;
 }
+#operacionCompleta {
+    font-size: 15px;
+    color: #5c636e;
+    margin-top: -60px;
+}
 td {
     width: 50px;
     height: 50px;
 }
-button {
+input {
     border-radius: 50%;
     border: none;
     width: 50px;
@@ -36,28 +41,29 @@ button {
     color: white;
     background-color: #232227;
 }
-button:active {
+input:active {
     background-color: #D0D5D6;
     color: #232227;
 }
-.resetear {
+input::placeholder {
+    color: white;
+    text-align: center;
+}
+.ac {
     background-color: #005118;
 }
-.parentesis, .porcentaje, .division, .multiplicacion,
-.menos, .mas{
+.azul{
     background-color: #01497A;
 }
 .igual {
     background-color: #003FA4;
 }
-.funciones button{
+.funciones input{
     color: #4c8df6;
     background-color: transparent;
+    font-size: 10px;
 }
-.funciones button:active{
+.funciones input:active{
     color: #d0d5d6;
     background-color: transparent;
-}
-.reciduoDivicion {
-    font-size: 10px;
 }
