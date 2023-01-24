@@ -1,7 +1,7 @@
 # Calculadora
 ## [Demostracion en vivo](https://luisrondon11.github.io/calculadora/)
 
-Esta es una calculadora simple 
+Esta es una calculadora simple. 
 Fue realizado como parte del curso [The Odin Proyect](https://www.theodinproject.com/)
 
 ### Tegnologias Utilizadas
